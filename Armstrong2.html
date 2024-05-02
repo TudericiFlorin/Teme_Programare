@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Armstrong Numbers</title>
+</head>
+<body>
+
+<h2>Enter the interval:</h2>
+<label for="start">From:</label>
+<input type="number" id="start" required>
+<label for="end">To:</label>
+<input type="number" id="end" required>
+<button onclick="findArmstrongNumbers()">Find Armstrong Numbers</button>
+
+<h2>Armstrong Numbers in the Interval:</h2>
+<ul id="armstrongNumbers"></ul>
+
+<script>
+function isArmstrongNumber(num) {
+  const numStr = num.toString();
+  const numDigits = numStr.length;
+  let sum = 0;
+  for (let i = 0; i < numDigits; i++) {
+    sum += Math.pow(parseInt(numStr[i]), numDigits);
+  }
+  return sum === num;
+}
+
+function findArmstrongNumbers() {
+  const start = parseInt(document.getElementById('start').value);
+  const end = parseInt(document.getElementById('end').value);
+  const armstrongNumbers = [];
+  for (let i = start; i <= end; i++) {
+    if (isArmstrongNumber(i)) {
+      armstrongNumbers.push(i);
+    }
+  }
+  displayArmstrongNumbers(armstrongNumbers);
+}
+
+function displayArmstrongNumbers(numbers) {
+  const armstrongList = document.getElementById('armstrongNumbers');
+  armstrongList.innerHTML = '';
+  if (numbers.length === 0) {
+    const listItem = document.createElement('li');
+    listItem.textContent = 'There are no Armstrong numbers in the given interval.';
+    armstrongList.appendChild(listItem);
+  } else {
+    numbers.forEach(function(number) {
+      const listItem = document.createElement('li');
+      listItem.textContent = number;
+      armstrongList.appendChild(listItem);
+    });
+  }
+}
+</script>
+
+</body>
+</html>
